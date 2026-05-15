@@ -10,7 +10,7 @@ export const userConfig = {
   displayName: "Karen",
 
   // Timezone for all date/time calculations
-  timezone: "America/Winnipeg",
+  timezone: "America/Edmonton",
 
   // Your Google Sheet URL (the "Open Sheet" link in the app)
   sheetUrl:

@@ -4,21 +4,21 @@
 
 export const userConfig = {
   // The user ID that gets stored in the spreadsheet
-  userId: "james",
+  userId: "Karen",
 
   // Display name shown in the app header
-  displayName: "James",
+  displayName: "Karen",
 
   // Timezone for all date/time calculations
   timezone: "America/Winnipeg",
 
   // Your Google Sheet URL (the "Open Sheet" link in the app)
   sheetUrl:
-    "https://docs.google.com/spreadsheets/d/1M75bxtHgB5HWZZ4nyRjwzciN4BI2kSeq-flJZk3TlfM/edit?gid=0#gid=0",
+    "https://docs.google.com/spreadsheets/d/1t1oBxGL76Ff1vygRPW9k-PoBQN7j0R9waCm34DvQSrc/edit?gid=0#gid=0",
 
   // Your Google Apps Script web app URL
   apiUrl:
-    "https://script.google.com/macros/s/AKfycbxOZ1XQTApK6ha3EkTtaAHPV6jbcZZPbuIj80kIPM-hoaJ_I3zzWuhXcH5dOOV9dDGR/exec",
+    "https://script.google.com/macros/s/AKfycby-Er_7z4Imklj_lDeoU-mA_eYlaTit8AeAxe9kpQAiRCIXc0k4XpOt2clzX7wkarpOEw/exec",
 
   // Background image:
   //   - Use a filename from the /public folder, e.g. "bg-ski.jpg"

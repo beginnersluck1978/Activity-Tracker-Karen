@@ -5,7 +5,7 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
   // Base path must match your GitHub repo name exactly
-  base: "/Activity-Tracker/",
+  base: "/Activity-Tracker-Karen/",
   plugins: [react()],
   resolve: {
     alias: {

@@ -23,7 +23,7 @@ export const userConfig = {
   // Background image:
   //   - Use a filename from the /public folder, e.g. "bg-ski.jpg"
   //   - Or use a full URL, e.g. "https://example.com/my-photo.jpg"
-  backgroundImage: "Sailor Moon 2.jpg",
+  backgroundImage: "karen-bg.jpg",
 
   // How many recent activities to fetch and display
   recentActivityLimit: 10,

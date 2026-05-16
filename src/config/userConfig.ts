@@ -4,10 +4,10 @@
 
 export const userConfig = {
   // The user ID that gets stored in the spreadsheet
-  userId: "Karen",
+  userId: "karen",
 
   // Display name shown in the app header
-  displayName: "Karen",
+  displayName: "karen",
 
   // Timezone for all date/time calculations
   timezone: "America/Edmonton",

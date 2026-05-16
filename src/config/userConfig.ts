@@ -7,7 +7,7 @@ export const userConfig = {
   userId: "karen",
 
   // Display name shown in the app header
-  displayName: "karen",
+  displayName: "Karen",
 
   // Timezone for all date/time calculations
   timezone: "America/Edmonton",

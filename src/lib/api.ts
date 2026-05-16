@@ -16,7 +16,7 @@ export async function apiPost(payload: Record<string, unknown>): Promise<any> {
   }
 }
 
-export const getWinnipegTimeString = (): string =>
+export const getEdmontonTimeString = (): string =>
   new Intl.DateTimeFormat("en-US", {
     timeZone: userConfig.timezone,
     hour: "2-digit",
@@ -25,7 +25,7 @@ export const getWinnipegTimeString = (): string =>
     hour12: false,
   }).format(new Date());
 
-export const getWinnipegDateString = (): string =>
+export const getEdmontonDateString = (): string =>
   new Intl.DateTimeFormat("en-US", { timeZone: userConfig.timezone }).format(new Date());
 
 export async function fetchCurrentActivity(): Promise<Activity | null> {
@@ -54,8 +54,8 @@ export async function createActivity(activity: string): Promise<Activity> {
     recordId: crypto.randomUUID(),
     user: userConfig.userId,
     activity: activity.trim(),
-    date: getWinnipegDateString(),
-    startTime: getWinnipegTimeString(),
+    date: getEdmontonDateString(),
+    startTime: getEdmontonTimeString(),
     isActive: true,
     status: "Active",
     createdAt: new Date().toISOString(),
@@ -133,6 +133,7 @@ export const timeToInput = (t: string | boolean | unknown): string => {
 export const inputToTime = (t: string): string => (t ? `${t}:00` : "");
 
 // Stored dates come back from Sheets as "M/D/YYYY" or sometimes "YYYY-MM-DD"
+// Also tolerates full JS date strings like "Fri May 15 2026 00:00:00 GMT-0500"
 export const dateToInput = (d: string | unknown): string => {
   const s = String(d ?? "");
   if (!s) return "";
@@ -140,6 +141,15 @@ export const dateToInput = (d: string | unknown): string => {
   const parts = s.split("/");
   if (parts.length === 3) {
     return `${parts[2]}-${parts[0].padStart(2, "0")}-${parts[1].padStart(2, "0")}`;
+  }
+  // Fallback: try the native Date parser for full date strings
+  // (e.g. "Fri May 15 2026 00:00:00 GMT-0500")
+  const parsed = new Date(s);
+  if (!isNaN(parsed.getTime())) {
+    const y = parsed.getFullYear();
+    const m = String(parsed.getMonth() + 1).padStart(2, "0");
+    const day = String(parsed.getDate()).padStart(2, "0");
+    return `${y}-${m}-${day}`;
   }
   return s;
 };
@@ -170,7 +180,13 @@ export const formatDateDisplay = (d: string | unknown): string => {
   const input = dateToInput(d);
   if (!input) return "";
   try {
-    const date = new Date(input + "T00:00:00");
+    // Construct the Date in LOCAL time using the y/m/d parts so the displayed
+    // day never shifts by one due to UTC parsing of an ISO string.
+    const [yStr, mStr, dayStr] = input.split("-");
+    const y = parseInt(yStr, 10);
+    const m = parseInt(mStr, 10);
+    const day = parseInt(dayStr, 10);
+    const date = new Date(y, m - 1, day);
     return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
   } catch {
     return String(d ?? "");
@@ -179,7 +195,7 @@ export const formatDateDisplay = (d: string | unknown): string => {
 
 export const isToday = (d: string | unknown): boolean => {
   const input = dateToInput(d);
-  const todayInput = dateToInput(getWinnipegDateString());
+  const todayInput = dateToInput(getEdmontonDateString());
   return input === todayInput;
 };
 

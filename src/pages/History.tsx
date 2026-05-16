@@ -25,8 +25,8 @@ import {
   dateToInput,
   inputToDate,
   isToday,
-  getWinnipegDateString,
-  getWinnipegTimeString,
+  getEdmontonDateString,
+  getEdmontonTimeString,
 } from "@/lib/api";
 
 const getBgUrl = () => {
@@ -61,7 +61,7 @@ const History = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [addState, setAddState] = useState<AddState>({
     activity: "",
-    date: dateToInput(getWinnipegDateString()),
+    date: dateToInput(getEdmontonDateString()),
     startTime: "",
     endTime: "",
   });
@@ -163,7 +163,7 @@ const History = () => {
       toast({ title: "Activity added" });
       setAddState({
         activity: "",
-        date: dateToInput(getWinnipegDateString()),
+        date: dateToInput(getEdmontonDateString()),
         startTime: "",
         endTime: "",
       });
